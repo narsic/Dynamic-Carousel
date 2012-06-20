@@ -48,7 +48,8 @@
 			addNav			: ( config != undefined && ( config.prevSlide || config.nextSlide ) ) ? false : true,
 			namespace		: 'carousel',
 			speed			: 300,
-			rotate:			: false
+			rotate:			: false,
+			startSlide:		: 1
 		},
 		opt               = $.extend(defaults, config),
 		$slidewrap        = this,
@@ -69,7 +70,8 @@
 							$slide     = $wrap.find(opt.slide),			
 							slidenum   = $slide.length,
 							transition = "margin-left " + ( opt.speed / 1000 ) + "s ease",
-							tmp        = 'carousel-' + inst + '-' + carInt;
+							tmp        = 'carousel-' + inst + '-' + carInt,
+							start      = opt.startSlide < 1 ? 1 : opt.startSlide > slidenum ? slidenum : parseInt(opt.startSlide);
 
 						if( $slide.length <= 1 ) {
 							return; /* No sense running all this code if the carousel functionality is unnecessary. */
@@ -85,7 +87,7 @@
 						$slider
 							.attr( 'id', ( $slider[0].id || 'carousel-' + inst + '-' + carInt ) )
 							.css({
-								"marginLeft"         : "0px",
+								"marginLeft"         : -(100 * (start - 1)) + "%",
 								"float"              : "left",
 								"width"              : 100 * slidenum + "%",
 								"-webkit-transition" : transition,
@@ -120,14 +122,17 @@
 						opt.addPagination   && carousel.addPagination();
 						opt.addNav 			&& carousel.addNav();
 						
-						$slider.trigger( "navstate", { current: 0 });
+						$slider.trigger( "navstate", { current: -(100 * (start - 1)) });
 				});
 			},
 			addNav : function() {
 				$slidewrap.each(function(i) {						
 					var $oEl = $(this),
 						$slider = $oEl.find(opt.slider),
-						currentSlider = $slider[0].id,
+						$slide = $oEl.find(opt.slide),
+						slidenum = $slide.length,
+						start = opt.startSlide < 1 ? 1 : opt.startSlide > slidenum ? slidenum : parseInt(opt.startSlide),
+						currentSlider = $slider[start - 1].id,
 						navMarkup = [
 							'<ul class="slidecontrols" role="navigation">',
 							'	<li role="presentation"><a href="#' + currentSlider + '" class="' + opt.namespace + '-next">Next</a></li>',
@@ -374,30 +379,37 @@
 				$el         = $(this),
 				speed       = $el.attr('data-autorotate'),
 				slidenum    = $el.find(opt.slide).length,
+				$slider     = $el.find(opt.slider),
+				autoAdvanceNext = function () {
+					clearInterval(auto);
+
+					auto = setInterval(function () {
+						autoAdvance();
+						$slider.trigger("nextprev", { dir: 'next' });
+					}, speed);
+				},
 				autoAdvance = function() {
-					var $slider  = $el.find(opt.slider),
-						active   = -( $(opt.slider).getPercentage() / 100 ) + 1;
-
-					switch( active ) {
-						case slidenum: 
-							clearInterval(auto);
-
-							auto = setInterval(function() {
-								autoAdvance();
-								$slider.trigger("nextprev", { dir: 'prev' });	
-							}, speed);
-
-							break;
-						case 1:
-							clearInterval(auto);
-
-							auto = setInterval(function() {
-								autoAdvance();								
-								$slider.trigger("nextprev", { dir: 'next' });	
-							}, speed);
-
-							break;
+					if (opt.rotate) {
+						autoAdvanceNext();
 					}
+					else {
+						var active   = -( $(opt.slider).getPercentage() / 100 ) + 1;
+
+						switch( active ) {
+							case slidenum: 
+								clearInterval(auto);
+
+								auto = setInterval(function() {
+									autoAdvance();
+									$slider.trigger("nextprev", { dir: 'prev' });	
+								}, speed);
+
+								break;
+							default:
+								autoAdvanceNext();
+								break;
+							}
+						}
 				};
 
 			auto = setInterval(autoAdvance, speed);
