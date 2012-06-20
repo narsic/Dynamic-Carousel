@@ -1,5 +1,10 @@
-/*! (c) Mat Marquis (@wilto). MIT License. http://wil.to/3a */
-
+/**
+ * Customised by Jadu Limited
+ * 
+ * Based on original code by:
+ * ! (c) Mat Marquis (@wilto). MIT License. http://wil.to/3a
+ * Ref: 0e2ab13ceff6d24bea5f38eceafd2ea8377417e8 
+ */
 (function( $, undefined ) {
 	var inst = 0;
 	
@@ -42,7 +47,8 @@
 			addPagination	: false,
 			addNav			: ( config != undefined && ( config.prevSlide || config.nextSlide ) ) ? false : true,
 			namespace		: 'carousel',
-			speed			: 300
+			speed			: 300,
+			rotate:			: false
 		},
 		opt               = $.extend(defaults, config),
 		$slidewrap        = this,
@@ -308,7 +314,7 @@
 							break;
 					}
 				} else {
-					var reset = carousel.roundDown(left);
+					var reset = opt.rotate == true ? 0 : carousel.roundDown(left);
 
 					$el.trigger('carouselmove', { moveTo: reset });
 				}
