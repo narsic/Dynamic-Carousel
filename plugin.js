@@ -290,6 +290,7 @@
 					left = ( $el ) ? $el.getPercentage() : 0,
 					$slide = $el.find(opt.slide),
 					constrain = ui.dir === 'prev' ? left != 0 : -left < ($slide.length - 1) * 100,
+					maxLeft = -($slide.length - 1) * 100;
 					$target = $( '[href="#' + this.id + '"]');
 
 				if (!$el.is(":animated") && constrain ) {
@@ -307,7 +308,7 @@
 						.removeAttr('aria-disabled');
 
 					switch( left ) {
-						case ( -($slide.length - 1) * 100 ):
+						case (maxLeft):
 							$target.filter(opt.nextSlide)
 								.addClass( opt.namespace + '-disabled')
 								.attr('aria-disabled', true);
@@ -319,7 +320,7 @@
 							break;
 					}
 				} else {
-					var reset = opt.rotate == true ? 0 : carousel.roundDown(left);
+					var reset = (opt.rotate && ui.dir === 'next') ? 0 : ((opt.rotate && ui.dir === 'prev') ? maxLeft : carousel.roundDown(left));
 
 					$el.trigger('carouselmove', { moveTo: reset });
 				}
