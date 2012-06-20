@@ -498,16 +498,17 @@ $.event.special.dragSnap = {
 							coords: [ data.pageX, data.pageY ]
 						},
 						deltaX = Math.abs( start.coords[0] - data.pageX ),
-						deltaY = Math.abs( start.coords[1] - data.pageY );
+						deltaY = Math.abs( start.coords[1] - data.pageY ),
+						left = (currentPos + (((stop.coords[0] - start.coords[0]) / start.origin.width()) * 100));
 
-					if( !start || deltaX < deltaY || deltaX < 15 ) {
+					if( !start || deltaX < 15 || currentPos <= 0 && left > 0 ) {
 						return;
 					}
 
 					// prevent scrolling
 					if ( deltaX >= 15 ) {
 						start.interacting = true;
-						$tEl.css({"margin-left": currentPos + ( ( (stop.coords[0] - start.coords[0]) / start.origin.width() ) * 100 ) + '%' });
+						$tEl.css({"margin-left": left + '%' });
 						e.preventDefault();
 					} else {
 						return;
