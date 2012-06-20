@@ -407,6 +407,12 @@
 				.bind('mouseenter click touchstart', function() {
 					clearInterval(auto);
 				});
+
+			$el
+				.attr('aria-live', 'polite')
+				.bind('mouseleave', function () {
+					auto = setInterval(autoAdvance, speed);
+				});
 		});
 
 		return this;
