@@ -17,13 +17,13 @@
 	$.fn.adjRounding = function(slide) {
 		var $el = $(this),
 			$slides = $el.find( slide ),
-			diff = $el.parent().width() - $($slides[0]).width();
+			diff = $el.parent().width() - $slides.eq(0).width();
 		
 		if (diff !== 0) { 
 			$($slides).css( "position", "relative" );
 			
 			for (var i = 0; i < $slides.length; i++) {
-				$($slides[i]).css( "left", (diff * i) + "px" );
+				$slides.eq(i).css( "left", (diff * i) + "px" );
 			}
 		}
 
@@ -159,7 +159,7 @@
 						associated  = 'carousel-' + inst + '-' + i;
 						
 					while( slideNum-- ) {
-						var hed = $( $slides[ slideNum ] ).find( opt.slideHed ).text() || 'Page ' + ( slideNum + 1 ),
+						var hed = $slides.eq(slideNum).find( opt.slideHed ).text() || 'Page ' + ( slideNum + 1 ),
 							tabMarkup = [
 								'<li role="presentation">',
 									'<a href="#' + associated + '-slide' + slideNum +'"',
@@ -214,7 +214,7 @@
 				var $el          = $(this),
 					$slides      = $el.find(opt.slide),
 					ind          = -(ui.current / 100),
-					$activeSlide = $($slides[ind]);
+					$activeSlide = $slides.eq(ind));
 								
 				$el.attr('aria-activedescendant', $activeSlide[0].id);
 
