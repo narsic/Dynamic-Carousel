@@ -48,8 +48,8 @@
 			addNav			: ( config != undefined && ( config.prevSlide || config.nextSlide ) ) ? false : true,
 			namespace		: 'carousel',
 			speed			: 300,
-			rotate:			: false,
-			startSlide:		: 1
+			rotate			: false,
+			startSlide		: 1
 		},
 		opt               = $.extend(defaults, config),
 		$slidewrap        = this,
@@ -214,7 +214,7 @@
 				var $el          = $(this),
 					$slides      = $el.find(opt.slide),
 					ind          = -(ui.current / 100),
-					$activeSlide = $slides.eq(ind));
+					$activeSlide = $slides.eq(ind);
 								
 				$el.attr('aria-activedescendant', $activeSlide[0].id);
 
