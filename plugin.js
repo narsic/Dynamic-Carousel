@@ -145,7 +145,7 @@
 					if (index != opt.startSlide - 1 && typeof title !== 'undefined') {
 						$(this).hide();
 						img = title.replace('Image: ', '');
-						$(this).attr('src', img).fadeIn(opt.lazyFadeDuration);
+						$(this).removeAttr('title').attr('src', img).fadeIn(opt.lazyFadeDuration);
 					}
 				});
 				imgLoaded = true;
