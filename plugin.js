@@ -58,7 +58,7 @@
 		imgLoaded         = false,
 		transitionSupport = function() {
 		    dBody.setAttribute('style', 'transition:top 1s ease;-webkit-transition:top 1s ease;-moz-transition:top 1s ease;');
-			var tSupport = !!(dBody.style.transition || dBody.style.webkitTransition || dBody.style.msTransition || dBody.style.OTransition || dBody.style.MozTransition )
+			var tSupport = !!(dBody.style.transition || dBody.style.webkitTransition || dBody.style.msTransition || dBody.style.OTransition || dBody.style.MozTransition );
 			
 			return tSupport;
 		},
@@ -178,8 +178,7 @@
 				$slidewrap.each(function(i) {
 					var $oEl        = $(this),
 						$pagination = $('<ol class="' + opt.namespace + '-tabs" role="tablist navigation" />'),
-						$slider     = $oEl.find(opt.slider),
-						$slides     = $oEl.find(opt.slide)
+						$slides     = $oEl.find(opt.slide),
 						slideNum    = $slides.length,
 						associated  = 'carousel-' + inst + '-' + i;
 						
@@ -372,8 +371,7 @@
 				e.preventDefault();
 			})
 			.bind('keydown', function(e) {
-				var $el = $(this),
-					link = this.hash;
+				var link = this.hash;
 
 				switch (e.which) {
 					case 37:
@@ -487,7 +485,7 @@ $.event.special.dragSnap = {
 					dBody = document.body,
 					transitionSupport = function() {
 					    dBody.setAttribute('style', 'transition:top 1s ease;-webkit-transition:top 1s ease;-moz-transition:top 1s ease;');
-						var tSupport = !!(dBody.style.transition || dBody.style.webkitTransition || dBody.style.MozTransition )
+						var tSupport = !!(dBody.style.transition || dBody.style.webkitTransition || dBody.style.MozTransition );
 
 						return tSupport;
 					};
