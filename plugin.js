@@ -28,7 +28,13 @@
 
 		return this;
 	};
-	
+
+	$.fn.transitionSupport = function () {
+		dBody = (document.body || document.documentElement);
+		dBody.setAttribute('style', 'transition:top 1s ease;-webkit-transition:top 1s ease;-moz-transition:top 1s ease;');
+		return !! (dBody.style.transition || dBody.style.webkitTransition || dBody.style.msTransition || dBody.style.OTransition || dBody.style.MozTransition);
+	};
+
 	$.fn.carousel = function(config) {
 		
 		// Prevent re-init:
@@ -54,14 +60,7 @@
 		},
 		opt               = $.extend(defaults, config),
 		$slidewrap        = this,
-		dBody            = (document.body || document.documentElement),
 		imgLoaded         = false,
-		transitionSupport = function() {
-		    dBody.setAttribute('style', 'transition:top 1s ease;-webkit-transition:top 1s ease;-moz-transition:top 1s ease;');
-			var tSupport = !!(dBody.style.transition || dBody.style.webkitTransition || dBody.style.msTransition || dBody.style.OTransition || dBody.style.MozTransition );
-			
-			return tSupport;
-		},
 		carousel = {
 			init : function() {				
 				inst++;
@@ -293,7 +292,7 @@
 					.trigger("navstate", { current: ui.moveTo })
 					.trigger('loadimages');
 				
-				if( transitionSupport() ) {
+				if( $el.transitionSupport() ) {
 
 					$el
 						.adjRounding( opt.slide ) /* Accounts for browser rounding errors. Lookin’ at you, iOS Safari. */
@@ -481,18 +480,11 @@ $.event.special.dragSnap = {
 			snapBack = function(e, ui) {
 				var $el = ui.target,
 					currentPos = ( $el.attr('style') != undefined ) ? $el.getPercentage() : 0,
-					left = (ui.left === false) ? roundDown(currentPos) - 100 : roundDown(currentPos),
-					dBody = document.body,
-					transitionSupport = function() {
-					    dBody.setAttribute('style', 'transition:top 1s ease;-webkit-transition:top 1s ease;-moz-transition:top 1s ease;');
-						var tSupport = !!(dBody.style.transition || dBody.style.webkitTransition || dBody.style.MozTransition );
-
-						return tSupport;
-					};
+					left = (ui.left === false) ? roundDown(currentPos) - 100 : roundDown(currentPos);
 
 				transitionSwap($el, true);
 
-				if( transitionSupport() ) {
+				if( $el.transitionSupport() ) {
 					$el.css('marginLeft', left + "%");
 				} else {
 					$el.animate({ marginLeft: left + "%" }, opt.speed);
