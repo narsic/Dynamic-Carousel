@@ -46,7 +46,28 @@
 				background: #777;
 			}
 			
-			.slidewrap4 img.lazy {display: none;}
+			.slidewrap4 {
+				overflow: hidden !important;
+				position: relative; 
+				width: 100%; 
+			}
+			.slidewrap4 .image-slide {
+				position: relative;
+				width: 100%;
+				height: 300px;
+				overflow: hidden;
+			}
+			.slidewrap4 img {
+				display: block;
+				width: 600px;
+				position: absolute; 
+				left: 50%;
+				margin-left: -300px;
+				z-index: 1;
+			}
+			.slidewrap4 img.lazy {
+				display: none;
+			}
 			
 			.events {
 				font: normal 11px/1.4 arial, helvetica, sans-serif;
@@ -139,28 +160,36 @@
 	<div class="slidewrap4" data-autorotate="2500">
 		<ul class="slider">
 			<li class="slide">
-				<a href="http://placehold.it/600x300&text=Slide+One">
-					<img title="" alt="Image 1" src="http://placehold.it/600x300&text=Slide+One" />
-					<noscript><img alt="Image 1" src="http://placehold.it/600x300&text=Slide+One" /></noscript>
-				</a>
+				<div class="image-slide">
+					<a href="http://placehold.it/600x300&text=Slide+One">
+						<img title="" alt="Image 1" src="http://placehold.it/600x300&text=Slide+One" />
+						<noscript><img alt="Image 1" src="http://placehold.it/600x300&text=Slide+One" /></noscript>
+					</a>
+				</div>
 			</li>
 			<li class="slide">
-				<a href="http://placehold.it/600x300/F0E000/000000&text=Slide+Two">
-					<img class="lazy" title="Image: http://placehold.it/600x300/F0E000/000000&text=Slide+Two" alt="Image 2" src="http://placehold.it/1x1" />
-					<noscript><img alt="Image 2" src="http://placehold.it/600x300/F0E000/000000&text=Slide+Two" /></noscript>
-				</a>
+				<div class="image-slide">
+					<a href="http://placehold.it/600x300/F0E000/000000&text=Slide+Two">
+						<img class="lazy" title="Image: http://placehold.it/600x300/F0E000/000000&text=Slide+Two" alt="Image 2" src="http://placehold.it/1x1" />
+						<noscript><img alt="Image 2" src="http://placehold.it/600x300/F0E000/000000&text=Slide+Two" /></noscript>
+					</a>
+				</div>
 			</li>
 			<li class="slide">
-				<a href="http://placehold.it/600x300/FF9D00/FFFFFF&text=Slide+Three">
-					<img class="lazy" title="Image: http://placehold.it/600x300/FF9D00/FFFFFF&text=Slide+Three" alt="Image 3" src="http://placehold.it/1x1" />
-					<noscript><img alt="Image 3" src="http://placehold.it/600x300/FF9D00/FFFFFF&text=Slide+Three" /></noscript>
-				</a>
+				<div class="image-slide">
+					<a href="http://placehold.it/600x300/FF9D00/FFFFFF&text=Slide+Three">
+						<img class="lazy" title="Image: http://placehold.it/600x300/FF9D00/FFFFFF&text=Slide+Three" alt="Image 3" src="http://placehold.it/1x1" />
+						<noscript><img alt="Image 3" src="http://placehold.it/600x300/FF9D00/FFFFFF&text=Slide+Three" /></noscript>
+					</a>
+				</div>
 			</li>
 			<li class="slide">
-				<a href="http://placehold.it/600x300/B3ED21/9ED11D&text=Slide+Four">
-					<img class="lazy" title="Image: http://placehold.it/600x300/B3ED21/92C21B&text=Slide+Four" alt="Image 4" src="http://placehold.it/1x1" />
-					<noscript><img alt="Image 4" src="http://placehold.it/600x300/B3ED21/92C21B&text=Slide+Four" /></noscript>
-				</a>
+				<div class="image-slide">
+					<a href="http://placehold.it/600x300/B3ED21/9ED11D&text=Slide+Four">
+						<img class="lazy" title="Image: http://placehold.it/600x300/B3ED21/92C21B&text=Slide+Four" alt="Image 4" src="http://placehold.it/1x1" />
+						<noscript><img alt="Image 4" src="http://placehold.it/600x300/B3ED21/92C21B&text=Slide+Four" /></noscript>
+					</a>
+				</div>
 			</li>
 		</ul>
 	</div>
