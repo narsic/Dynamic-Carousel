@@ -1,9 +1,8 @@
 /**
- * Customised by Jadu Limited
+ * Custom Responsive Carousel
  * 
  * Based on original code by:
  * ! (c) Mat Marquis (@wilto). MIT License. http://wil.to/3a
- * Ref: 0e2ab13ceff6d24bea5f38eceafd2ea8377417e8 
  */
 (function( $, undefined ) {
 	var inst = 0;
@@ -49,11 +48,14 @@
 			namespace		: 'carousel',
 			speed			: 300,
 			rotate			: false,
-			startSlide		: 1
+			startSlide		: 1,
+			lazy			: false,
+			lazyFadeDuration: 300
 		},
 		opt               = $.extend(defaults, config),
 		$slidewrap        = this,
 		dBody            = (document.body || document.documentElement),
+		imgLoaded         = false,
 		transitionSupport = function() {
 		    dBody.setAttribute('style', 'transition:top 1s ease;-webkit-transition:top 1s ease;-moz-transition:top 1s ease;');
 			var tSupport = !!(dBody.style.transition || dBody.style.webkitTransition || dBody.style.msTransition || dBody.style.OTransition || dBody.style.MozTransition )
@@ -98,7 +100,8 @@
 							})
 							.bind( 'carouselmove' , carousel.move )
 							.bind( 'nextprev'     , carousel.nextPrev )
-							.bind( 'navstate'     , carousel.navState );
+							.bind( 'navstate'     , carousel.navState )
+							.bind( 'loadimages'   , carousel.loadImages);
 
 						$slide
 							.css({
@@ -123,7 +126,29 @@
 						opt.addNav 			&& carousel.addNav();
 						
 						$slider.trigger( "navstate", { current: -(100 * (start - 1)) });
+
+						if (opt.lazy == false) {
+							$slider.trigger('loadimages');
+						}
 				});
+			},
+			loadImages: function () {
+				if (imgLoaded == true) {
+					return;
+				}
+
+				var $el = $(this);
+				$images = $el.find(opt.slide + ' img');
+				$images.each(function (index) {
+					$(this).removeClass('lazy');
+					title = $(this).attr('title');
+					if (index != opt.startSlide - 1 && typeof title !== 'undefined') {
+						$(this).hide();
+						img = title.replace('Image: ', '');
+						$(this).attr('src', img).fadeIn(opt.lazyFadeDuration);
+					}
+				});
+				imgLoaded = true;
 			},
 			addNav : function() {
 				$slidewrap.each(function(i) {						
@@ -266,7 +291,8 @@
 
 				$el
 					.trigger(opt.namespace + "-beforemove")
-					.trigger("navstate", { current: ui.moveTo });
+					.trigger("navstate", { current: ui.moveTo })
+					.trigger('loadimages');
 				
 				if( transitionSupport() ) {
 
@@ -504,6 +530,8 @@ $.event.special.dragSnap = {
 					if( !start || deltaX < 15 || currentPos <= 0 && left > 0 ) {
 						return;
 					}
+
+					$tEl.trigger('loadimages');
 
 					// prevent scrolling
 					if ( deltaX >= 15 ) {

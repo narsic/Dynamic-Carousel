@@ -133,7 +133,7 @@
 		</ul>
 	</div>
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 
 
 	<script src="plugin.js"></script>
@@ -148,7 +148,9 @@
 				addPagination: true,
 				addNav : false,
 				rotate : false,
-				startSlide: 1
+				startSlide: 1,
+				lazy: true,
+				lazyFadeDuration: 100 // ms.
 			});
 			
 			$('.slidewrap2').carousel({
