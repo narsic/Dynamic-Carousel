@@ -78,7 +78,7 @@
 	</head>
 	<body>
 	
-	<div class="slidewrap" data-autorotate="5000">
+	<div class="slidewrap">
 		<ul class="slidecontrols">
 			<li><a href="#sliderName" class="next">Next</a></li>
 			<li><a href="#sliderName" class="prev">Prev</a></li>
@@ -157,7 +157,7 @@
 		</ul>
 	</div>
 	
-	<div class="slidewrap4" data-autorotate="2500">
+	<div class="slidewrap4">
 		<ul class="slider">
 			<li class="slide">
 				<div class="image-slide">
@@ -208,7 +208,8 @@
 				rotate : false,
 				startSlide: 1,
 				lazy: false,
-				lazyFadeDuration: 100 // ms.
+				lazyFadeDuration: 100, // ms.
+				autoRotate: 5000
 			});
 			
 			$('.slidewrap2').carousel({
@@ -243,7 +244,8 @@
 				rotate : true,
 				startSlide: 1,
 				lazy: true,
-				lazyFadeDuration: 300 // ms.
+				lazyFadeDuration: 300, // ms.
+				autoRotate: 2500
 			});
 		});
 	</script>
