@@ -522,14 +522,14 @@ $.event.special.dragSnap = {
 						deltaY = Math.abs( start.coords[1] - data.pageY ),
 						left = (currentPos + (((stop.coords[0] - start.coords[0]) / start.origin.width()) * 100));
 
-					if( !start || deltaX < 15 || currentPos <= 0 && left > 0 ) {
+					if( !start || deltaX < 55 || currentPos <= 0 && left > 0 ) {
 						return;
 					}
 
 					$tEl.trigger('loadimages');
 
 					// prevent scrolling
-					if ( deltaX >= 15 ) {
+					if ( deltaX >= 55 ) {
 						start.interacting = true;
 						$tEl.css({"margin-left": left + '%' });
 						e.preventDefault();
