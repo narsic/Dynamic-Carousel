@@ -417,7 +417,7 @@
 						autoAdvanceNext();
 					}
 					else {
-						var active   = -($(opt.slider).getPercentage() / 100) + 1;
+						var active = -($slider.getPercentage() / 100) + 1;
 						
 						switch(active) {
 							case slidenum:
@@ -432,15 +432,15 @@
 							default:
 								autoAdvanceNext();
 								break;
-							}
 						}
+					}
 				};
-				
-				if (opt.autoRotate == false) {
-					return;
-				}
 			
-			auto = setInterval(autoAdvance, speed);
+			if (opt.autoRotate == false) {
+				return;
+			}
+			
+			auto = setInterval(autoAdvance, 0);
 			
 			$el
 				.attr('aria-live', 'polite')
