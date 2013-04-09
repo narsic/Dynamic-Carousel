@@ -52,6 +52,7 @@
 				nextSlide : null,
 				slideHed : null,
                 slideHedPre : 'Page',
+                slideHedText : null,
 				addPagination : false,
 				addNav : (config != undefined && (config.prevSlide || config.nextSlide)) ? false : true,
 				namespace : 'carousel',
@@ -177,6 +178,12 @@
 						$oEl.prepend(navMarkup);
 					});
 				},
+                _paginationText: function(slideNum) {
+                    if (opt.slideHedText && opt.slideHedText.length > 0 && opt.slideHedText[slideNum]) {
+                        return opt.slideHedText[slideNum];
+                    }
+                    return opt.slideHedPre + ' ' + (slideNum + 1);
+                },
 				addPagination : function () {
 					$slidewrap.each(function (i) {
 						var $oEl = $(this),
@@ -186,7 +193,7 @@
 							associated = 'carousel-' + inst + '-' + i;
 						
 						while (slideNum--) {
-							var hed = $slides.eq(slideNum).find(opt.slideHed).text() || opt.slideHedPre + ' ' + (slideNum + 1),
+							var hed = $slides.eq(slideNum).find(opt.slideHed).text() || carousel._paginationText(slideNum),
 								tabMarkup = [
 									'<li role="presentation">',
 										'<a href="#' + associated + '-slide' + slideNum +'"',
