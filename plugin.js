@@ -51,6 +51,7 @@
 				prevSlide : null,
 				nextSlide : null,
 				slideHed : null,
+                slideHedPre : 'Page',
 				addPagination : false,
 				addNav : (config != undefined && (config.prevSlide || config.nextSlide)) ? false : true,
 				namespace : 'carousel',
@@ -185,7 +186,7 @@
 							associated = 'carousel-' + inst + '-' + i;
 						
 						while (slideNum--) {
-							var hed = $slides.eq(slideNum).find(opt.slideHed).text() || 'Page ' + (slideNum + 1),
+							var hed = $slides.eq(slideNum).find(opt.slideHed).text() || opt.slideHedPre + ' ' + (slideNum + 1),
 								tabMarkup = [
 									'<li role="presentation">',
 										'<a href="#' + associated + '-slide' + slideNum +'"',
