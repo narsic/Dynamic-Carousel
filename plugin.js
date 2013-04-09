@@ -3,6 +3,8 @@
  * 
  * Based on original code by:
  * ! (c) Mat Marquis (@wilto). MIT License. http://wil.to/3a
+ *
+ * @author    narsic <narsicnet@gmail.com>
  */
 (function ($, undefined) {
 	var inst = 0;
